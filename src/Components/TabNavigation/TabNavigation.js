@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import { tabNoState } from "../../recoil/atom";
 
-export default function NavigationTab() {
+export default function TabNavigation() {
   const setTabNo = useSetRecoilState(tabNoState);
 
   function tabClicked(e) {
