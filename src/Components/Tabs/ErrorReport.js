@@ -18,10 +18,6 @@ export default function ErrorReport() {
     setDetailContent("");
   }
 
-  function handleSubmitBtnClick() {
-    setSubmitted(true);
-  }
-
   function handleErrorCategoryClick(e) {
     setErrorCategory(e.target.id);
   }
@@ -32,6 +28,10 @@ export default function ErrorReport() {
 
   function handleDetailContentInput(e) {
     setDetailContent(e.target.value);
+  }
+
+  function handleSubmitBtnClick() {
+    setSubmitted(true);
   }
 
   return submitted ? (
