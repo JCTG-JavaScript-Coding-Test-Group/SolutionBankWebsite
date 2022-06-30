@@ -6,11 +6,20 @@ export default function ErrorReport() {
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
 
-  function handleSubmitBtnClick() {
+  let isQuestionNameUnvisible = errorCategory === "" || errorCategory === "error-notCopied";
+  let isDetailContentUnvisible =
+    errorCategory === "" || (errorCategory === "error-wrongAnswer" && questionName === "");
+  let isSubmitBtnDisable = errorCategory === "error-other" && detailContent === "";
+
+  function handleOtherErrorBtnClick() {
     setSubmitted(false);
     setErrorCategory("");
     setQuestionName("");
     setDetailContent("");
+  }
+
+  function handleSubmitBtnClick() {
+    setSubmitted(true);
   }
 
   function handleErrorCategoryClick(e) {
@@ -28,7 +37,7 @@ export default function ErrorReport() {
   return submitted ? (
     <div>
       <p>제보해주셔서 감사합니다.</p>
-      <button onClick={handleSubmitBtnClick}>다른 오류 제보</button>
+      <button onClick={handleOtherErrorBtnClick}>다른 오류 제보</button>
     </div>
   ) : (
     <div>
@@ -57,7 +66,7 @@ export default function ErrorReport() {
         <label htmlFor="error-other">기타</label>
       </div>
 
-      {errorCategory === "" || errorCategory === "error-notCopied" ? null : (
+      {isQuestionNameUnvisible ? null : (
         <div>
           <span>문제 이름:</span>
           <input
@@ -74,8 +83,7 @@ export default function ErrorReport() {
         </div>
       )}
 
-      {errorCategory === "" ||
-      (errorCategory === "error-wrongAnswer" && questionName === "") ? null : (
+      {isDetailContentUnvisible ? null : (
         <>
           <div>
             <span>내용: </span>
@@ -87,11 +95,7 @@ export default function ErrorReport() {
             ></textarea>
           </div>
           <div>
-            <button
-              id="submitBtn"
-              disabled={errorCategory === "error-other" && detailContent === ""}
-              onClick={() => setSubmitted(true)}
-            >
+            <button id="submitBtn" disabled={isSubmitBtnDisable} onClick={handleSubmitBtnClick}>
               제출
             </button>
           </div>
