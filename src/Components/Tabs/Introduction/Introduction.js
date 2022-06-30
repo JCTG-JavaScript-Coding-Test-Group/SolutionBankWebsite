@@ -1,6 +1,6 @@
-export default function IntroductionTab() {
+export default function Introduction() {
   return (
-    <div className="IntroductionTab">
+    <div>
       <p>IntroductionTab</p>
       {/* IntroductionTab content will go here */}
     </div>
