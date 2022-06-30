@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-import Introduction from "./Tabs/Introduction/Introduction";
-import ErrorReport from "./Tabs/ErrorReport/ErrorReport";
-import SolutionReport from "./Tabs/SolutionReport/SolutionReport";
+import Introduction from "./Tabs/Introduction";
+import ErrorReport from "./Tabs/ErrorReport";
+import SolutionReport from "./Tabs/SolutionReport";
 
 export default function TabNavigation() {
   return (
