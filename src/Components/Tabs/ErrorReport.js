@@ -6,6 +6,11 @@ export default function ErrorReport() {
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
 
+  const isQuestionNameUnvisible = errorCategory === "" || errorCategory === "error-notCopied";
+  const isDetailContentUnvisible =
+    errorCategory === "" || (errorCategory === "error-wrongAnswer" && questionName === "");
+  const isSubmitBtnDisabled = errorCategory === "error-other" && detailContent === "";
+
   function handleOtherErrorBtnClick() {
     setSubmitted(false);
     setErrorCategory("");
@@ -60,7 +65,7 @@ export default function ErrorReport() {
         />
         <label htmlFor="error-other">기타</label>
       </div>
-      {errorCategory === "" || errorCategory === "error-notCopied" ? null : (
+      {isQuestionNameUnvisible ? null : (
         <div>
           <span>문제 이름:</span>
           <input
@@ -76,8 +81,7 @@ export default function ErrorReport() {
           </datalist>
         </div>
       )}
-      {errorCategory === "" ||
-      (errorCategory === "error-wrongAnswer" && questionName === "") ? null : (
+      {isDetailContentUnvisible ? null : (
         <>
           <div>
             <span>내용: </span>
@@ -89,11 +93,7 @@ export default function ErrorReport() {
             ></textarea>
           </div>
           <div>
-            <button
-              id="submitBtn"
-              disabled={errorCategory === "error-other" && detailContent === ""}
-              onClick={handleSubmitBtnClick}
-            >
+            <button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
               제출
             </button>
           </div>

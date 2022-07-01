@@ -5,6 +5,9 @@ export default function SolutionReport() {
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
 
+  const isDetailContentUnvisible = questionName === "";
+  const isSubmitBtnDisabled = detailContent === "";
+
   function handleOtherSolutionBtnClick() {
     setSubmitted(false);
     setQuestionName("");
@@ -31,7 +34,7 @@ export default function SolutionReport() {
   ) : (
     <div>
       <div>
-        <span>문제 이름:</span>
+        <span>문제 이름: </span>
         <input
           list="questionName"
           name="question"
@@ -45,7 +48,7 @@ export default function SolutionReport() {
         </datalist>
       </div>
 
-      {questionName === "" ? null : (
+      {isDetailContentUnvisible ? null : (
         <>
           <div className="gitHubLogin">
             <span>기여자 등록: </span>
@@ -61,7 +64,7 @@ export default function SolutionReport() {
             ></textarea>
           </div>
           <div>
-            <button id="submitBtn" disabled={detailContent === ""} onClick={handleSubmitBtnClick}>
+            <button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
               제출
             </button>
           </div>
