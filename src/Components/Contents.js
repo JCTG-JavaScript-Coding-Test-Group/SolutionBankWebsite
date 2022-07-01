@@ -5,7 +5,7 @@ import Introduction from "./Tabs/Introduction";
 import ErrorReport from "./Tabs/ErrorReport";
 import SolutionReport from "./Tabs/SolutionReport";
 
-export default function TabNavigation() {
+export default function Contents() {
   return (
     <BrowserRouter>
       <TabList>
