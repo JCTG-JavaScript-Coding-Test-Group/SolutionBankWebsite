@@ -1,3 +1,4 @@
+
 export default function SolutionCodeInput() {
   return (
     <div className="SolutionCodeInput">
