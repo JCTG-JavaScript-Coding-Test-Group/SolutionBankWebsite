@@ -1,4 +1,17 @@
 import { useState } from "react";
+import styled from "styled-components";
+
+import {
+  TabWrapper,
+  BlockText,
+  Button,
+  StepByStepInputItem,
+  InlineText,
+  TextInput,
+  DataList,
+  Option,
+  TextArea,
+} from "./Style/StyledComponent";
 
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
@@ -27,49 +40,52 @@ export default function SolutionReport() {
   }
 
   return submitted ? (
-    <div>
-      <p>제보해주셔서 감사합니다.</p>
-      <button onClick={handleOtherSolutionBtnClick}>다른 정답 제보</button>
-    </div>
+    <TabWrapper>
+      <BlockText>제보해주셔서 감사합니다.</BlockText>
+      <Button onClick={handleOtherSolutionBtnClick}>다른 정답 제보</Button>
+    </TabWrapper>
   ) : (
-    <div>
-      <div>
-        <span>문제 이름: </span>
-        <input
+    <TabWrapper>
+      <StepByStepInputItem>
+        <InlineText>문제 이름: </InlineText>
+        <TextInput
           list="questionName"
           name="question"
           onInput={handleQuestionNameInput}
           defaultValue={questionName}
         />
-        <datalist id="questionName">
-          <option value="1번문제" />
-          <option value="2번문제" />
-          <option value="3번문제" />
-        </datalist>
-      </div>
+        <DataList id="questionName">
+          <Option value="1번문제" />
+          <Option value="2번문제" />
+          <Option value="3번문제" />
+        </DataList>
+      </StepByStepInputItem>
 
       {isDetailContentUnvisible ? null : (
         <>
-          <div className="gitHubLogin">
-            <span>기여자 등록: </span>
-            <button id="gitHubLoginBtn">GitHub 로그인</button>
-          </div>
-          <div>
-            <span>내용: </span>
-            <textarea
+          <StepByStepInputItem>
+            <InlineText>기여자 등록: </InlineText>
+            <GitHubLoginBtn id="gitHubLoginBtn">GitHub 로그인</GitHubLoginBtn>
+          </StepByStepInputItem>
+          <StepByStepInputItem>
+            <InlineText>내용: </InlineText>
+            <TextArea
               rows="20"
               cols="100"
               onInput={handleDetailContentInput}
               defaultValue={detailContent}
-            ></textarea>
-          </div>
-          <div>
-            <button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
+            ></TextArea>
+          </StepByStepInputItem>
+
+          <StepByStepInputItem>
+            <Button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
               제출
-            </button>
-          </div>
+            </Button>
+          </StepByStepInputItem>
         </>
       )}
-    </div>
+    </TabWrapper>
   );
 }
+
+const GitHubLoginBtn = styled.button``;

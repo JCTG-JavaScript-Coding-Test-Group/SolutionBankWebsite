@@ -1,4 +1,17 @@
 import { useState } from "react";
+import {
+  TabWrapper,
+  BlockText,
+  Button,
+  StepByStepInputItem,
+  InlineText,
+  RadioInput,
+  Label,
+  TextInput,
+  DataList,
+  Option,
+  TextArea,
+} from "./Style/StyledComponent";
 
 export default function ErrorReport() {
   const [submitted, setSubmitted] = useState(false);
@@ -35,70 +48,73 @@ export default function ErrorReport() {
   }
 
   return submitted ? (
-    <div>
-      <p>제보해주셔서 감사합니다.</p>
-      <button onClick={handleOtherErrorBtnClick}>다른 오류 제보</button>
-    </div>
+    <TabWrapper>
+      <BlockText>제보해주셔서 감사합니다.</BlockText>
+      <Button onClick={handleOtherErrorBtnClick}>다른 오류 제보</Button>
+    </TabWrapper>
   ) : (
-    <div>
-      <div>
-        <span>오류 유형: </span>
-        <input
+    <TabWrapper>
+      <StepByStepInputItem>
+        <InlineText>오류 유형: </InlineText>
+        <RadioInput
           type="radio"
           id="error-wrongAnswer"
           name="errorCategory"
           onClick={handleErrorCategoryClick}
         />
-        <label htmlFor="error-wrongAnswer">정답 통과가 안돼요</label>
-        <input
+        <Label htmlFor="error-wrongAnswer">정답 통과가 안돼요</Label>
+        <RadioInput
           type="radio"
           id="error-notCopied"
           name="errorCategory"
           onClick={handleErrorCategoryClick}
         />
-        <label htmlFor="error-notCopied">코드 복사가 안돼요</label>
-        <input
+        <Label htmlFor="error-notCopied">코드 복사가 안돼요</Label>
+        <RadioInput
           type="radio"
           id="error-other"
           name="errorCategory"
           onClick={handleErrorCategoryClick}
         />
-        <label htmlFor="error-other">기타</label>
-      </div>
+        <Label htmlFor="error-other">기타</Label>
+      </StepByStepInputItem>
+
       {isQuestionNameUnvisible ? null : (
-        <div>
-          <span>문제 이름:</span>
-          <input
+        <StepByStepInputItem>
+          <InlineText>문제 이름: </InlineText>
+          <TextInput
             list="questionName"
             name="question"
             onInput={handleQuestionNameInput}
             defaultValue={questionName}
           />
-          <datalist id="questionName">
-            <option value="1번문제" />
-            <option value="2번문제" />
-            <option value="3번문제" />
-          </datalist>
-        </div>
+          <DataList id="questionName">
+            <Option value="1번문제" />
+            <Option value="2번문제" />
+            <Option value="3번문제" />
+          </DataList>
+        </StepByStepInputItem>
       )}
+
       {isDetailContentUnvisible ? null : (
         <>
-          <div>
-            <span>내용: </span>
-            <textarea
+          <StepByStepInputItem>
+            <InlineText>내용: </InlineText>
+            <TextArea
               rows="20"
               cols="100"
               onInput={handleDetailContentInput}
               defaultValue={detailContent}
-            ></textarea>
-          </div>
-          <div>
-            <button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
+            ></TextArea>
+          </StepByStepInputItem>
+
+          <StepByStepInputItem>
+            <Button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
               제출
-            </button>
-          </div>
+            </Button>
+          </StepByStepInputItem>
         </>
       )}
-    </div>
+    </TabWrapper>
   );
 }
