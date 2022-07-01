@@ -1,5 +1,6 @@
 import { useState } from "react";
-import styled from "styled-components";
+
+import GitHubLogin from "./GitHubLogin";
 
 import {
   TabWrapper,
@@ -64,9 +65,9 @@ export default function SolutionReport() {
       {isDetailContentUnvisible ? null : (
         <>
           <StepByStepInputItem>
-            <InlineText>기여자 등록: </InlineText>
-            <GitHubLoginBtn id="gitHubLoginBtn">GitHub 로그인</GitHubLoginBtn>
+            <GitHubLogin />
           </StepByStepInputItem>
+
           <StepByStepInputItem>
             <InlineText>내용: </InlineText>
             <TextArea
@@ -87,5 +88,3 @@ export default function SolutionReport() {
     </TabWrapper>
   );
 }
-
-const GitHubLoginBtn = styled.button``;
