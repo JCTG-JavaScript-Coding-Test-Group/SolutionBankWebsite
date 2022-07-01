@@ -3,20 +3,30 @@ import { useState } from "react";
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
   const [questionName, setQuestionName] = useState("");
-  const [detailInput, setDetailInput] = useState("");
+  const [detailContent, setDetailContent] = useState("");
+
+  function handleOtherSolutionBtnClick() {
+    setSubmitted(false);
+    setQuestionName("");
+    setDetailContent("");
+  }
+
+  function handleQuestionNameInput(e) {
+    setQuestionName(e.target.value);
+  }
+
+  function handleDetailContentInput(e) {
+    setDetailContent(e.target.value);
+  }
+
+  function handleSubmitBtnClick() {
+    setSubmitted(true);
+  }
 
   return submitted ? (
     <div>
       <p>제보해주셔서 감사합니다.</p>
-      <button
-        onClick={() => {
-          setSubmitted(false);
-          setQuestionName("");
-          setDetailInput("");
-        }}
-      >
-        다른 정답 제보
-      </button>
+      <button onClick={handleOtherSolutionBtnClick}>다른 정답 제보</button>
     </div>
   ) : (
     <div>
@@ -25,7 +35,7 @@ export default function SolutionReport() {
         <input
           list="questionName"
           name="question"
-          onInput={(e) => setQuestionName(e.target.value)}
+          onInput={handleQuestionNameInput}
           defaultValue={questionName}
         />
         <datalist id="questionName">
@@ -46,12 +56,12 @@ export default function SolutionReport() {
             <textarea
               rows="20"
               cols="100"
-              onInput={(e) => setDetailInput(e.target.value)}
-              defaultValue={detailInput}
+              onInput={handleDetailContentInput}
+              defaultValue={detailContent}
             ></textarea>
           </div>
           <div>
-            <button id="submitBtn" disabled={detailInput === ""} onClick={() => setSubmitted(true)}>
+            <button id="submitBtn" disabled={detailContent === ""} onClick={handleSubmitBtnClick}>
               제출
             </button>
           </div>

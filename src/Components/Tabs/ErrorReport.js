@@ -4,21 +4,35 @@ export default function ErrorReport() {
   const [submitted, setSubmitted] = useState(false);
   const [errorCategory, setErrorCategory] = useState("");
   const [questionName, setQuestionName] = useState("");
-  const [detailInput, setDetailInput] = useState("");
+  const [detailContent, setDetailContent] = useState("");
+
+  function handleOtherErrorBtnClick() {
+    setSubmitted(false);
+    setErrorCategory("");
+    setQuestionName("");
+    setDetailContent("");
+  }
+
+  function handleErrorCategoryClick(e) {
+    setErrorCategory(e.target.id);
+  }
+
+  function handleQuestionNameInput(e) {
+    setQuestionName(e.target.value);
+  }
+
+  function handleDetailContentInput(e) {
+    setDetailContent(e.target.value);
+  }
+
+  function handleSubmitBtnClick() {
+    setSubmitted(true);
+  }
 
   return submitted ? (
     <div>
       <p>제보해주셔서 감사합니다.</p>
-      <button
-        onClick={() => {
-          setSubmitted(false);
-          setErrorCategory("");
-          setQuestionName("");
-          setDetailInput("");
-        }}
-      >
-        다른 오류 제보
-      </button>
+      <button onClick={handleOtherErrorBtnClick}>다른 오류 제보</button>
     </div>
   ) : (
     <div>
@@ -28,21 +42,21 @@ export default function ErrorReport() {
           type="radio"
           id="error-wrongAnswer"
           name="errorCategory"
-          onClick={(e) => setErrorCategory(e.target.id)}
+          onClick={handleErrorCategoryClick}
         />
         <label htmlFor="error-wrongAnswer">정답 통과가 안돼요</label>
         <input
           type="radio"
           id="error-notCopied"
           name="errorCategory"
-          onClick={(e) => setErrorCategory(e.target.id)}
+          onClick={handleErrorCategoryClick}
         />
         <label htmlFor="error-notCopied">코드 복사가 안돼요</label>
         <input
           type="radio"
           id="error-other"
           name="errorCategory"
-          onClick={(e) => setErrorCategory(e.target.id)}
+          onClick={handleErrorCategoryClick}
         />
         <label htmlFor="error-other">기타</label>
       </div>
@@ -52,7 +66,7 @@ export default function ErrorReport() {
           <input
             list="questionName"
             name="question"
-            onInput={(e) => setQuestionName(e.target.value)}
+            onInput={handleQuestionNameInput}
             defaultValue={questionName}
           />
           <datalist id="questionName">
@@ -70,15 +84,15 @@ export default function ErrorReport() {
             <textarea
               rows="20"
               cols="100"
-              onInput={(e) => setDetailInput(e.target.value)}
-              defaultValue={detailInput}
+              onInput={handleDetailContentInput}
+              defaultValue={detailContent}
             ></textarea>
           </div>
           <div>
             <button
               id="submitBtn"
-              disabled={errorCategory === "error-other" && detailInput === ""}
-              onClick={() => setSubmitted(true)}
+              disabled={errorCategory === "error-other" && detailContent === ""}
+              onClick={handleSubmitBtnClick}
             >
               제출
             </button>
