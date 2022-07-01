@@ -1,8 +1,5 @@
+import { TabWrapper } from "./Style/StyledComponent";
+
 export default function Introduction() {
-  return (
-    <div>
-      <p>IntroductionTab</p>
-      {/* IntroductionTab content will go here */}
-    </div>
-  );
+  return <TabWrapper>{/* IntroductionTab content will go here */}</TabWrapper>;
 }

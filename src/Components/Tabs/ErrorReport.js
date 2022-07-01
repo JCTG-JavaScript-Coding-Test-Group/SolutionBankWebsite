@@ -1,91 +1,120 @@
 import { useState } from "react";
+import {
+  TabWrapper,
+  BlockText,
+  Button,
+  StepByStepInputItem,
+  InlineText,
+  RadioInput,
+  Label,
+  TextInput,
+  DataList,
+  Option,
+  TextArea,
+} from "./Style/StyledComponent";
 
 export default function ErrorReport() {
   const [submitted, setSubmitted] = useState(false);
-  const [errorCategory, setErrorCategory] = useState(-1);
+  const [errorCategory, setErrorCategory] = useState("");
   const [questionName, setQuestionName] = useState("");
-  const [detailInput, setDetailInput] = useState("");
+  const [detailContent, setDetailContent] = useState("");
+
+  const isQuestionNameUnvisible = errorCategory === "" || errorCategory === "error-notCopied";
+  const isDetailContentUnvisible =
+    errorCategory === "" || (errorCategory === "error-wrongAnswer" && questionName === "");
+  const isSubmitBtnDisabled = errorCategory === "error-other" && detailContent === "";
+
+  function handleOtherErrorBtnClick() {
+    setSubmitted(false);
+    setErrorCategory("");
+    setQuestionName("");
+    setDetailContent("");
+  }
+
+  function handleErrorCategoryClick(e) {
+    setErrorCategory(e.target.id);
+  }
+
+  function handleQuestionNameInput(e) {
+    setQuestionName(e.target.value);
+  }
+
+  function handleDetailContentInput(e) {
+    setDetailContent(e.target.value);
+  }
+
+  function handleSubmitBtnClick() {
+    setSubmitted(true);
+  }
 
   return submitted ? (
-    <div>
-      <p>제보해주셔서 감사합니다.</p>
-      <button
-        onClick={() => {
-          setSubmitted(false);
-          setErrorCategory(-1);
-          setQuestionName("");
-          setDetailInput("");
-        }}
-      >
-        다른 오류 제보
-      </button>
-    </div>
+    <TabWrapper>
+      <BlockText>제보해주셔서 감사합니다.</BlockText>
+      <Button onClick={handleOtherErrorBtnClick}>다른 오류 제보</Button>
+    </TabWrapper>
   ) : (
-    <div>
-      <div>
-        <span>오류 유형: </span>
-        <input
+    <TabWrapper>
+      <StepByStepInputItem>
+        <InlineText>오류 유형: </InlineText>
+        <RadioInput
           type="radio"
-          id="errorCategory0"
+          id="error-wrongAnswer"
           name="errorCategory"
-          onClick={() => setErrorCategory(0)}
+          onClick={handleErrorCategoryClick}
         />
-        <label htmlFor="errorCategory0">정답 통과가 안돼요</label>
-        <input
+        <Label htmlFor="error-wrongAnswer">정답 통과가 안돼요</Label>
+        <RadioInput
           type="radio"
-          id="errorCategory1"
+          id="error-notCopied"
           name="errorCategory"
-          onClick={() => setErrorCategory(1)}
+          onClick={handleErrorCategoryClick}
         />
-        <label htmlFor="errorCategory1">코드 복사가 안돼요</label>
-        <input
+        <Label htmlFor="error-notCopied">코드 복사가 안돼요</Label>
+        <RadioInput
           type="radio"
-          id="errorCategory2"
+          id="error-other"
           name="errorCategory"
-          onClick={() => setErrorCategory(2)}
+          onClick={handleErrorCategoryClick}
         />
-        <label htmlFor="errorCategory2">기타</label>
-      </div>
+        <Label htmlFor="error-other">기타</Label>
+      </StepByStepInputItem>
 
-      {errorCategory === -1 || errorCategory === 1 ? null : (
-        <div>
-          <span>문제 이름:</span>
-          <input
+      {isQuestionNameUnvisible ? null : (
+        <StepByStepInputItem>
+          <InlineText>문제 이름: </InlineText>
+          <TextInput
             list="questionName"
             name="question"
-            onInput={(e) => setQuestionName(e.target.value)}
+            onInput={handleQuestionNameInput}
             defaultValue={questionName}
           />
-          <datalist id="questionName">
-            <option value="1번문제" />
-            <option value="2번문제" />
-            <option value="3번문제" />
-          </datalist>
-        </div>
+          <DataList id="questionName">
+            <Option value="1번문제" />
+            <Option value="2번문제" />
+            <Option value="3번문제" />
+          </DataList>
+        </StepByStepInputItem>
       )}
 
-      {errorCategory === -1 || (errorCategory === 0 && questionName === "") ? null : (
+      {isDetailContentUnvisible ? null : (
         <>
-          <div>
-            <span>내용: </span>
-            <textarea
+          <StepByStepInputItem>
+            <InlineText>내용: </InlineText>
+            <TextArea
               rows="20"
               cols="100"
-              onInput={(e) => setDetailInput(e.target.value)}
-              defaultValue={detailInput}
-            ></textarea>
-          </div>
-          <div>
-            <button
-              id="submitBtn"
-              disabled={errorCategory === 2 && detailInput === ""}
-              onClick={() => setSubmitted(true)}
-            >
+              onInput={handleDetailContentInput}
+              defaultValue={detailContent}
+            ></TextArea>
+          </StepByStepInputItem>
+
+          <StepByStepInputItem>
+            <Button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
               제출
-            </button>
-          </div>
+            </Button>
+          </StepByStepInputItem>
         </>
       )}
-    </div>
+    </TabWrapper>
   );
 }

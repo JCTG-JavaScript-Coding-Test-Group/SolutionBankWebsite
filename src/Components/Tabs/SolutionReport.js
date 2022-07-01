@@ -1,62 +1,91 @@
 import { useState } from "react";
+import styled from "styled-components";
+
+import {
+  TabWrapper,
+  BlockText,
+  Button,
+  StepByStepInputItem,
+  InlineText,
+  TextInput,
+  DataList,
+  Option,
+  TextArea,
+} from "./Style/StyledComponent";
 
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
   const [questionName, setQuestionName] = useState("");
-  const [detailInput, setDetailInput] = useState("");
+  const [detailContent, setDetailContent] = useState("");
+
+  const isDetailContentUnvisible = questionName === "";
+  const isSubmitBtnDisabled = detailContent === "";
+
+  function handleOtherSolutionBtnClick() {
+    setSubmitted(false);
+    setQuestionName("");
+    setDetailContent("");
+  }
+
+  function handleQuestionNameInput(e) {
+    setQuestionName(e.target.value);
+  }
+
+  function handleDetailContentInput(e) {
+    setDetailContent(e.target.value);
+  }
+
+  function handleSubmitBtnClick() {
+    setSubmitted(true);
+  }
 
   return submitted ? (
-    <div>
-      <p>제보해주셔서 감사합니다.</p>
-      <button
-        onClick={() => {
-          setSubmitted(false);
-          setQuestionName("");
-          setDetailInput("");
-        }}
-      >
-        다른 정답 제보
-      </button>
-    </div>
+    <TabWrapper>
+      <BlockText>제보해주셔서 감사합니다.</BlockText>
+      <Button onClick={handleOtherSolutionBtnClick}>다른 정답 제보</Button>
+    </TabWrapper>
   ) : (
-    <div>
-      <div>
-        <span>문제 이름:</span>
-        <input
+    <TabWrapper>
+      <StepByStepInputItem>
+        <InlineText>문제 이름: </InlineText>
+        <TextInput
           list="questionName"
           name="question"
-          onInput={(e) => setQuestionName(e.target.value)}
+          onInput={handleQuestionNameInput}
           defaultValue={questionName}
         />
-        <datalist id="questionName">
-          <option value="1번문제" />
-          <option value="2번문제" />
-          <option value="3번문제" />
-        </datalist>
-      </div>
+        <DataList id="questionName">
+          <Option value="1번문제" />
+          <Option value="2번문제" />
+          <Option value="3번문제" />
+        </DataList>
+      </StepByStepInputItem>
 
-      {questionName === "" ? null : (
+      {isDetailContentUnvisible ? null : (
         <>
-          <div className="gitHubLogin">
-            <span>기여자 등록: </span>
-            <button id="gitHubLoginBtn">GitHub 로그인</button>
-          </div>
-          <div>
-            <span>내용: </span>
-            <textarea
+          <StepByStepInputItem>
+            <InlineText>기여자 등록: </InlineText>
+            <GitHubLoginBtn id="gitHubLoginBtn">GitHub 로그인</GitHubLoginBtn>
+          </StepByStepInputItem>
+          <StepByStepInputItem>
+            <InlineText>내용: </InlineText>
+            <TextArea
               rows="20"
               cols="100"
-              onInput={(e) => setDetailInput(e.target.value)}
-              defaultValue={detailInput}
-            ></textarea>
-          </div>
-          <div>
-            <button id="submitBtn" disabled={detailInput === ""} onClick={() => setSubmitted(true)}>
+              onInput={handleDetailContentInput}
+              defaultValue={detailContent}
+            ></TextArea>
+          </StepByStepInputItem>
+
+          <StepByStepInputItem>
+            <Button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
               제출
-            </button>
-          </div>
+            </Button>
+          </StepByStepInputItem>
         </>
       )}
-    </div>
+    </TabWrapper>
   );
 }
+
+const GitHubLoginBtn = styled.button``;

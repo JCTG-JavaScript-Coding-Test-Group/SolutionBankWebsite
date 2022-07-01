@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import styled from "styled-components";
 
 import Introduction from "./Tabs/Introduction";
 import ErrorReport from "./Tabs/ErrorReport";
@@ -7,17 +8,17 @@ import SolutionReport from "./Tabs/SolutionReport";
 export default function TabNavigation() {
   return (
     <BrowserRouter>
-      <ul>
-        <li>
+      <TabList>
+        <TabItem>
           <Link to="/">소개</Link>
-        </li>
-        <li>
+        </TabItem>
+        <TabItem>
           <Link to="/error-report">오류 제보</Link>
-        </li>
-        <li>
+        </TabItem>
+        <TabItem>
           <Link to="/solution-report">정답 제보</Link>
-        </li>
-      </ul>
+        </TabItem>
+      </TabList>
       <Routes>
         <Route path="/" element={<Introduction />}></Route>
         <Route path="/error-report" element={<ErrorReport />}></Route>
@@ -26,3 +27,7 @@ export default function TabNavigation() {
     </BrowserRouter>
   );
 }
+
+const TabList = styled.ul``;
+
+const TabItem = styled.li``;
