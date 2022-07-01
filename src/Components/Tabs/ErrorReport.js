@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function ErrorReport() {
   const [submitted, setSubmitted] = useState(false);
-  const [errorCategory, setErrorCategory] = useState(-1);
+  const [errorCategory, setErrorCategory] = useState("");
   const [questionName, setQuestionName] = useState("");
   const [detailInput, setDetailInput] = useState("");
 
@@ -12,7 +12,7 @@ export default function ErrorReport() {
       <button
         onClick={() => {
           setSubmitted(false);
-          setErrorCategory(-1);
+          setErrorCategory("");
           setQuestionName("");
           setDetailInput("");
         }}
@@ -26,28 +26,27 @@ export default function ErrorReport() {
         <span>오류 유형: </span>
         <input
           type="radio"
-          id="errorCategory0"
+          id="error-wrongAnswer"
           name="errorCategory"
-          onClick={() => setErrorCategory(0)}
+          onClick={(e) => setErrorCategory(e.target.id)}
         />
-        <label htmlFor="errorCategory0">정답 통과가 안돼요</label>
+        <label htmlFor="error-wrongAnswer">정답 통과가 안돼요</label>
         <input
           type="radio"
-          id="errorCategory1"
+          id="error-notCopied"
           name="errorCategory"
-          onClick={() => setErrorCategory(1)}
+          onClick={(e) => setErrorCategory(e.target.id)}
         />
-        <label htmlFor="errorCategory1">코드 복사가 안돼요</label>
+        <label htmlFor="error-notCopied">코드 복사가 안돼요</label>
         <input
           type="radio"
-          id="errorCategory2"
+          id="error-other"
           name="errorCategory"
-          onClick={() => setErrorCategory(2)}
+          onClick={(e) => setErrorCategory(e.target.id)}
         />
-        <label htmlFor="errorCategory2">기타</label>
+        <label htmlFor="error-other">기타</label>
       </div>
-
-      {errorCategory === -1 || errorCategory === 1 ? null : (
+      {errorCategory === "" || errorCategory === "error-notCopied" ? null : (
         <div>
           <span>문제 이름:</span>
           <input
@@ -63,8 +62,8 @@ export default function ErrorReport() {
           </datalist>
         </div>
       )}
-
-      {errorCategory === -1 || (errorCategory === 0 && questionName === "") ? null : (
+      {errorCategory === "" ||
+      (errorCategory === "error-wrongAnswer" && questionName === "") ? null : (
         <>
           <div>
             <span>내용: </span>
@@ -78,7 +77,7 @@ export default function ErrorReport() {
           <div>
             <button
               id="submitBtn"
-              disabled={errorCategory === 2 && detailInput === ""}
+              disabled={errorCategory === "error-other" && detailInput === ""}
               onClick={() => setSubmitted(true)}
             >
               제출
