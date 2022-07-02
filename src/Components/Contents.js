@@ -5,8 +5,6 @@ import Introduction from "./Tabs/Introduction";
 import ErrorReport from "./Tabs/ErrorReport";
 import SolutionReport from "./Tabs/SolutionReport";
 
-import LoginStart from "./Tabs/LoginStart";
-
 // const getAccessToken = async () => {
 //   const baseUrl = "https://github.com/login/oauth/access_token";
 //   const config = {

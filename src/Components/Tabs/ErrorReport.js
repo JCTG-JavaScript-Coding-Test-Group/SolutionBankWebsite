@@ -28,7 +28,7 @@ export default function ErrorReport() {
     errorCategory === "error-other" && detailContent === "";
 
   function handleOtherErrorBtnClick() {
-    setSubmitted(false);
+    setSubmitted(!submitted);
     setErrorCategory("");
     setQuestionName("");
     setDetailContent("");
@@ -47,7 +47,11 @@ export default function ErrorReport() {
   }
 
   function handleSubmitBtnClick() {
-    setSubmitted(true);
+    setSubmitted(!submitted);
+  }
+
+  function handleSubmitAlert() {
+    alert("제출완료! 감사합니다");
   }
 
   return submitted ? (
@@ -58,7 +62,9 @@ export default function ErrorReport() {
   ) : (
     <TabWrapper
       method="POST"
-      action="https://script.google.com/macros/s/AKfycbxFVkCt9iozf975qYbwODtWVfc4iRr9aFwwzm1v5dKJSuCarL2o1Y0w07MVavomfy2A/exec"
+      action="https://script.google.com/macros/s/AKfycbym87G4wkX6PLLL9zUafJ7_2zfqJifBDZDnN7RCFftRcmS4GTp9J2O6mSZPNZmd5pCU/exec"
+      target="blankifr"
+      // onSubmit={handleSubmitBtnClick}
     >
       <StepByStepInputItem>
         <InlineText>오류 유형: </InlineText>
@@ -67,6 +73,7 @@ export default function ErrorReport() {
           id="error-wrongAnswer"
           name="errorCategory"
           onClick={handleErrorCategoryClick}
+          value="정답 통과가 안돼요"
         />
         <Label htmlFor="error-wrongAnswer">정답 통과가 안돼요</Label>
         <RadioInput
@@ -74,6 +81,7 @@ export default function ErrorReport() {
           id="error-notCopied"
           name="errorCategory"
           onClick={handleErrorCategoryClick}
+          value="코드 복사가 안돼요"
         />
         <Label htmlFor="error-notCopied">코드 복사가 안돼요</Label>
         <RadioInput
@@ -81,6 +89,7 @@ export default function ErrorReport() {
           id="error-other"
           name="errorCategory"
           onClick={handleErrorCategoryClick}
+          value="기타"
         />
         <Label htmlFor="error-other">기타</Label>
       </StepByStepInputItem>
@@ -90,11 +99,11 @@ export default function ErrorReport() {
           <InlineText>문제 이름: </InlineText>
           <TextInput
             list="questionName"
-            name="question"
+            name="Question"
             onInput={handleQuestionNameInput}
             defaultValue={questionName}
           />
-          <DataList id="questionName">
+          <DataList id="questionName" name="question">
             <Option value="1번문제" />
             <Option value="2번문제" />
             <Option value="3번문제" />
@@ -111,20 +120,24 @@ export default function ErrorReport() {
               cols="100"
               onInput={handleDetailContentInput}
               defaultValue={detailContent}
+              name="Contents"
             ></TextArea>
           </StepByStepInputItem>
 
           <StepByStepInputItem>
             <Button
+              type="submit"
               id="submitBtn"
               disabled={isSubmitBtnDisabled}
-              onClick={handleSubmitBtnClick}
+              onClick={handleSubmitAlert}
+              // onClick={handleSubmitBtnClick}
             >
               제출
             </Button>
           </StepByStepInputItem>
         </>
       )}
+      <iframe name="blankifr" style={{ display: "none" }}></iframe>
     </TabWrapper>
   );
 }

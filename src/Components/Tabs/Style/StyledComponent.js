@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-export const TabWrapper = styled.div``;
+export const TabWrapper = styled.form``;
 
 export const BlockText = styled.p``;
 
