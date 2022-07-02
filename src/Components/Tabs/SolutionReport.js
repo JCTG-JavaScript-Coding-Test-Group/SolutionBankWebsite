@@ -18,7 +18,7 @@ export default function SolutionReport() {
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
 
-  const isDetailContentUnvisible = questionName === "";
+  const isDetailContentVisible = questionName !== "";
   const isSubmitBtnDisabled = detailContent === "";
 
   function handleOtherSolutionBtnClick() {
@@ -61,7 +61,7 @@ export default function SolutionReport() {
         </DataList>
       </StepByStepInputItem>
 
-      {isDetailContentUnvisible ? null : (
+      {isDetailContentVisible && (
         <>
           <StepByStepInputItem>
             <InlineText>기여자 등록: </InlineText>
