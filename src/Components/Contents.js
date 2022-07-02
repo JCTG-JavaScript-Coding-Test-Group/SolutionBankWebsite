@@ -5,6 +5,40 @@ import Introduction from "./Tabs/Introduction";
 import ErrorReport from "./Tabs/ErrorReport";
 import SolutionReport from "./Tabs/SolutionReport";
 
+import LoginStart from "./Tabs/LoginStart";
+
+// const getAccessToken = async () => {
+//   const baseUrl = "https://github.com/login/oauth/access_token";
+//   const config = {
+//     client_id: "497a08df8fa6b9f4dc7f",
+//     client_secret: "4e596b7fd2f4825e0523d5fea7de246b4fa59cd1",
+//     code: authorizationCode,
+//   };
+//   const params = new URLSearchParams(config).toString();
+//   const finalUrl = `${baseUrl}?${params}`;
+//   const tokenRequest = await (
+//     await fetch(finalUrl, {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//       },
+//     })
+//   ).json();
+//   // localStorage.setItem("token", tokenRequest.access_token);
+//   // return tokenRequest;
+//   if ("access_token" in tokenRequest) {
+//     const { access_token } = tokenRequest;
+//     const userData = await (
+//       await fetch("https://api.github.com/user", {
+//         headers: {
+//           Authorization: `token ${access_token}`,
+//         },
+//       })
+//     ).json();
+//     return userData;
+//   }
+// };
+
 export default function Contents() {
   return (
     <BrowserRouter>
@@ -24,6 +58,7 @@ export default function Contents() {
         <Route path="/error-report" element={<ErrorReport />}></Route>
         <Route path="/solution-report" element={<SolutionReport />}></Route>
         <Route path="/solution-report/*" element={<SolutionReport />}></Route>
+        {/* <Route path="/solution-report/*" element={<LoginStart />}></Route> */}
       </Routes>
     </BrowserRouter>
   );

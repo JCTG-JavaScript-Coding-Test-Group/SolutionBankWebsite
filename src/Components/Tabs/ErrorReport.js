@@ -19,10 +19,13 @@ export default function ErrorReport() {
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
 
-  const isQuestionNameUnvisible = errorCategory === "" || errorCategory === "error-notCopied";
+  const isQuestionNameUnvisible =
+    errorCategory === "" || errorCategory === "error-notCopied";
   const isDetailContentUnvisible =
-    errorCategory === "" || (errorCategory === "error-wrongAnswer" && questionName === "");
-  const isSubmitBtnDisabled = errorCategory === "error-other" && detailContent === "";
+    errorCategory === "" ||
+    (errorCategory === "error-wrongAnswer" && questionName === "");
+  const isSubmitBtnDisabled =
+    errorCategory === "error-other" && detailContent === "";
 
   function handleOtherErrorBtnClick() {
     setSubmitted(false);
@@ -53,7 +56,10 @@ export default function ErrorReport() {
       <Button onClick={handleOtherErrorBtnClick}>다른 오류 제보</Button>
     </TabWrapper>
   ) : (
-    <TabWrapper>
+    <TabWrapper
+      method="POST"
+      action="https://script.google.com/macros/s/AKfycbxFVkCt9iozf975qYbwODtWVfc4iRr9aFwwzm1v5dKJSuCarL2o1Y0w07MVavomfy2A/exec"
+    >
       <StepByStepInputItem>
         <InlineText>오류 유형: </InlineText>
         <RadioInput
@@ -109,7 +115,11 @@ export default function ErrorReport() {
           </StepByStepInputItem>
 
           <StepByStepInputItem>
-            <Button id="submitBtn" disabled={isSubmitBtnDisabled} onClick={handleSubmitBtnClick}>
+            <Button
+              id="submitBtn"
+              disabled={isSubmitBtnDisabled}
+              onClick={handleSubmitBtnClick}
+            >
               제출
             </Button>
           </StepByStepInputItem>
