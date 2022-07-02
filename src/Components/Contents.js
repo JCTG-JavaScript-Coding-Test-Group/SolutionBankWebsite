@@ -5,7 +5,7 @@ import Introduction from "./Tabs/Introduction";
 import ErrorReport from "./Tabs/ErrorReport";
 import SolutionReport from "./Tabs/SolutionReport";
 
-export default function TabNavigation() {
+export default function Contents() {
   return (
     <BrowserRouter>
       <TabList>
@@ -23,6 +23,7 @@ export default function TabNavigation() {
         <Route path="/" element={<Introduction />}></Route>
         <Route path="/error-report" element={<ErrorReport />}></Route>
         <Route path="/solution-report" element={<SolutionReport />}></Route>
+        <Route path="/solution-report/*" element={<SolutionReport />}></Route>
       </Routes>
     </BrowserRouter>
   );
