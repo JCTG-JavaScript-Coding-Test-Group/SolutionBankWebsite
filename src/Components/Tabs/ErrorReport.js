@@ -19,9 +19,9 @@ export default function ErrorReport() {
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
 
-  const isQuestionNameUnvisible = errorCategory === "" || errorCategory === "error-notCopied";
-  const isDetailContentUnvisible =
-    errorCategory === "" || (errorCategory === "error-wrongAnswer" && questionName === "");
+  const isQuestionNameVisible = errorCategory !== "" && errorCategory !== "error-notCopied";
+  const isDetailContentVisible =
+    errorCategory !== "" && (errorCategory !== "error-wrongAnswer" || questionName !== "");
   const isSubmitBtnDisabled = errorCategory === "error-other" && detailContent === "";
 
   function handleOtherErrorBtnClick() {
@@ -79,7 +79,7 @@ export default function ErrorReport() {
         <Label htmlFor="error-other">기타</Label>
       </StepByStepInputItem>
 
-      {isQuestionNameUnvisible ? null : (
+      {isQuestionNameVisible && (
         <StepByStepInputItem>
           <InlineText>문제 이름: </InlineText>
           <TextInput
@@ -96,7 +96,7 @@ export default function ErrorReport() {
         </StepByStepInputItem>
       )}
 
-      {isDetailContentUnvisible ? null : (
+      {isDetailContentVisible && (
         <>
           <StepByStepInputItem>
             <InlineText>내용: </InlineText>
