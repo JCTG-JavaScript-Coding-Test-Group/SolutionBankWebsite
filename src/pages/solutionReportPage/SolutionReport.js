@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import {
@@ -15,12 +15,32 @@ import {
   SubmitBtn,
 } from "../../style/styledComponents";
 import gitHubLogoSrc from "../../images/github-logo-white.png";
+import { useSearchParams } from "react-router-dom";
+import {
+  LOGIN_URL,
+  requestAccessToken,
+  requestLogin,
+} from "./utils/gitHubLogin";
 
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [userInfo, setUserInfo] = useState({});
 
+  useEffect(() => {
+    if (searchParams.get("code")) {
+      const code = searchParams.get("code");
+      requestAccessToken(code)
+        .then((response) => requestLogin(response.access_token))
+        .then((response) => {
+          setUserInfo(response);
+          console.log(response);
+        });
+    }
+  }, [searchParams]);
+  const handleGitHubLogin = async () => {};
   const isDetailContentVisible = questionName !== "";
   const isSubmitBtnDisabled = detailContent === "";
 
@@ -93,13 +113,22 @@ export default function SolutionReport() {
           </StepByStepInputItem>
 
           {/*isDetailContentVisible &&*/}
-          {true && (
+          {
             <>
               <StepByStepInputItem>
                 <InputLabel>기여자 등록</InputLabel>
-                <GitHubLoginBtn id="gitHubLoginBtn">
-                  GitHub 로그인
-                </GitHubLoginBtn>
+                {userInfo.hasOwnProperty("avatar_url") ? (
+                  <UserInfo></UserInfo>
+                ) : (
+                  <a href={LOGIN_URL}>
+                    <GitHubLoginBtn
+                      id="gitHubLoginBtn"
+                      onClick={handleGitHubLogin}
+                    >
+                      GitHub 로그인
+                    </GitHubLoginBtn>
+                  </a>
+                )}
               </StepByStepInputItem>
               <StepByStepInputItem>
                 <InputLabel>내용</InputLabel>
@@ -122,7 +151,7 @@ export default function SolutionReport() {
                 </SubmitBtn>
               </StepByStepInputItem>
             </>
-          )}
+          }
         </MainContetnWrapper>
       )}
     </>
@@ -148,3 +177,4 @@ const GitHubLoginBtn = styled.button`
 const Msg = styled.span`
   color: ${(props) => props.theme.programmersBlue};
 `;
+const UserInfo = styled.div``;
