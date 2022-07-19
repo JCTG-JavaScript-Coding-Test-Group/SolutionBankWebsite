@@ -1,14 +1,13 @@
-import styled from "styled-components";
-
-import Contents from "./Components/Contents";
+import Router from "./Router";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./style/theme";
+import { GlobalStyle } from "./style/globalStyle";
 
 export default function App() {
   return (
-    <>
-      <Title>🤖 프로그래머스 JS 정답 통과기</Title>
-      <Contents />
-    </>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Router />
+    </ThemeProvider>
   );
 }
-
-const Title = styled.h1``;
