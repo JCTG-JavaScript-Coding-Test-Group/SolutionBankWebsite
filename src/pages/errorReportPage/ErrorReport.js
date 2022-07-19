@@ -21,10 +21,13 @@ export default function ErrorReport() {
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
 
-  const isQuestionNameVisible = errorCategory !== "" && errorCategory !== "error-notCopied";
+  const isQuestionNameVisible =
+    errorCategory !== "" && errorCategory !== "error-notCopied";
   const isDetailContentVisible =
-    errorCategory !== "" && (errorCategory !== "error-wrongAnswer" || questionName !== "");
-  const isSubmitBtnDisabled = errorCategory === "error-other" && detailContent === "";
+    errorCategory !== "" &&
+    (errorCategory !== "error-wrongAnswer" || questionName !== "");
+  const isSubmitBtnDisabled =
+    errorCategory === "error-other" && detailContent === "";
 
   function handleOtherErrorBtnClick() {
     setSubmitted(false);
@@ -56,14 +59,19 @@ export default function ErrorReport() {
       {submitted ? (
         <>
           <ThanksMsg>제보해주셔서 감사합니다.</ThanksMsg>
-          <OtherReportBtn onClick={handleOtherErrorBtnClick}>다른 오류 제보</OtherReportBtn>
+          <OtherReportBtn onClick={handleOtherErrorBtnClick}>
+            다른 오류 제보
+          </OtherReportBtn>
         </>
       ) : (
         <MainContetnWrapper>
           <StepByStepInputItem>
             <InputLabel>오류 유형</InputLabel>
             <RadioInputWrapper>
-              <Label htmlFor="error-wrongAnswer" clicked={errorCategory === "error-wrongAnswer"}>
+              <Label
+                htmlFor="error-wrongAnswer"
+                clicked={errorCategory === "error-wrongAnswer"}
+              >
                 정답 통과가 안돼요
               </Label>
               <RadioInput
@@ -72,7 +80,10 @@ export default function ErrorReport() {
                 name="errorCategory"
                 onClick={handleErrorCategoryClick}
               />
-              <Label htmlFor="error-notCopied" clicked={errorCategory === "error-notCopied"}>
+              <Label
+                htmlFor="error-notCopied"
+                clicked={errorCategory === "error-notCopied"}
+              >
                 코드 복사가 안돼요
               </Label>
               <RadioInput
@@ -81,7 +92,10 @@ export default function ErrorReport() {
                 name="errorCategory"
                 onClick={handleErrorCategoryClick}
               />
-              <Label htmlFor="error-other" clicked={errorCategory === "error-other"}>
+              <Label
+                htmlFor="error-other"
+                clicked={errorCategory === "error-other"}
+              >
                 기타
               </Label>
               <RadioInput
@@ -101,7 +115,7 @@ export default function ErrorReport() {
                 placeholder="문제 이름을 검색하세요."
                 defaultValue={questionName}
                 onInput={handleQuestionNameInput}
-              ></TextInput>
+              />
               <QuestionList id="questionsList">
                 <QuestionItem>
                   <QuestionBtn>1번문제</QuestionBtn>
@@ -140,7 +154,7 @@ export default function ErrorReport() {
                   cols="100"
                   onInput={handleDetailContentInput}
                   defaultValue={detailContent}
-                ></TextArea>
+                />
               </StepByStepInputItem>
 
               <StepByStepInputItem>

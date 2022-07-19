@@ -63,36 +63,37 @@ export default function SolutionReport() {
               placeholder="문제 이름을 검색하세요."
               defaultValue={questionName}
               onInput={handleQuestionNameInput}
-            ></TextInput>
-            <QuestionList id="questionsList">
-              <QuestionItem>
-                <QuestionBtn>1번문제</QuestionBtn>
-              </QuestionItem>
-              <QuestionItem>
-                <QuestionBtn>2번문제</QuestionBtn>
-              </QuestionItem>
-              <QuestionItem>
-                <QuestionBtn>3번문제</QuestionBtn>
-              </QuestionItem>
-              <QuestionItem>
-                <QuestionBtn>4번문제</QuestionBtn>
-              </QuestionItem>
-              <QuestionItem>
-                <QuestionBtn>5번문제</QuestionBtn>
-              </QuestionItem>
-              <QuestionItem>
-                <QuestionBtn>6번문제</QuestionBtn>
-              </QuestionItem>
-              <QuestionItem>
-                <QuestionBtn>7번문제</QuestionBtn>
-              </QuestionItem>
-              <QuestionItem>
-                <QuestionBtn>8번문제</QuestionBtn>
-              </QuestionItem>
-            </QuestionList>
+            />
+            {/*<QuestionList id="questionsList">*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>1번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>2번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>3번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>4번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>5번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>6번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>7번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*  <QuestionItem>*/}
+            {/*    <QuestionBtn>8번문제</QuestionBtn>*/}
+            {/*  </QuestionItem>*/}
+            {/*</QuestionList>*/}
           </StepByStepInputItem>
 
-          {isDetailContentVisible && (
+          {/*isDetailContentVisible &&*/}
+          {true && (
             <>
               <StepByStepInputItem>
                 <InputLabel>기여자 등록</InputLabel>
