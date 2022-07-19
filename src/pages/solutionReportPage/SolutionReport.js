@@ -50,7 +50,9 @@ export default function SolutionReport() {
       {submitted ? (
         <>
           <ThanksMsg>제보해주셔서 감사합니다.</ThanksMsg>
-          <OtherReportBtn onClick={handleOtherSolutionBtnClick}>다른 정답 제보</OtherReportBtn>
+          <OtherReportBtn onClick={handleOtherSolutionBtnClick}>
+            다른 정답 제보
+          </OtherReportBtn>
         </>
       ) : (
         <MainContetnWrapper>
@@ -94,7 +96,9 @@ export default function SolutionReport() {
             <>
               <StepByStepInputItem>
                 <InputLabel>기여자 등록</InputLabel>
-                <GitHubLoginBtn id="gitHubLoginBtn">GitHub 로그인</GitHubLoginBtn>
+                <GitHubLoginBtn id="gitHubLoginBtn">
+                  GitHub 로그인
+                </GitHubLoginBtn>
               </StepByStepInputItem>
               <StepByStepInputItem>
                 <InputLabel>내용</InputLabel>
@@ -104,7 +108,7 @@ export default function SolutionReport() {
                   cols="100"
                   onInput={handleDetailContentInput}
                   defaultValue={detailContent}
-                ></TextArea>
+                />
               </StepByStepInputItem>
 
               <StepByStepInputItem>
