@@ -2,42 +2,33 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import {
-  ThanksMsg,
-  OtherReportBtn,
-  MainContetnWrapper,
-  StepByStepInputItem,
   InputLabel,
-  TextInput,
-  QuestionList,
-  QuestionItem,
-  QuestionBtn,
-  TextArea,
+  MainContetnWrapper,
+  OtherReportBtn,
+  StepByStepInputItem,
   SubmitBtn,
+  TextArea,
+  TextInput,
+  ThanksMsg,
 } from "../../style/styledComponents";
 import gitHubLogoSrc from "../../images/github-logo-white.png";
 import { useSearchParams } from "react-router-dom";
-import {
-  LOGIN_URL,
-  requestAccessToken,
-  requestLogin,
-} from "./utils/gitHubLogin";
+import { LOGIN_URL } from "./utils/gitHubLogin";
+import useUserProfile from "../../hooks/user/useUserProfile";
+import useUserLogin from "../../hooks/user/useUserLogin";
 
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const [userInfo, setUserInfo] = useState({});
+  const userInfo = useUserProfile();
+  const { isLoggedIn, requestLogin } = useUserLogin();
 
   useEffect(() => {
     if (searchParams.get("code")) {
       const code = searchParams.get("code");
-      requestAccessToken(code)
-        .then((response) => requestLogin(response.access_token))
-        .then((response) => {
-          setUserInfo(response);
-          console.log(response);
-        });
+      requestLogin(code);
     }
   }, [searchParams]);
   const handleGitHubLogin = async () => {};
@@ -45,7 +36,6 @@ export default function SolutionReport() {
   const isSubmitBtnDisabled = detailContent === "";
 
   function handleOtherSolutionBtnClick() {
-    console.log("!");
     setSubmitted(false);
     setQuestionName("");
     setDetailContent("");
@@ -117,8 +107,11 @@ export default function SolutionReport() {
             <>
               <StepByStepInputItem>
                 <InputLabel>기여자 등록</InputLabel>
-                {userInfo.hasOwnProperty("avatar_url") ? (
-                  <UserInfo></UserInfo>
+                {isLoggedIn ? (
+                  <UserInfo>
+                    이름: {userInfo.username}
+                    이미지: {userInfo.profileImg}
+                  </UserInfo>
                 ) : (
                   <a href={LOGIN_URL}>
                     <GitHubLoginBtn
