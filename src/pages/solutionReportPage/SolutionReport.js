@@ -140,6 +140,6 @@ const GitHubLoginBtn = styled.button`
   cursor: pointer;
 `;
 
-const Msg = styled.span`
-  color: ${(props) => props.theme.programmersBlue};
-`;
+// const Msg = styled.span`
+//   color: ${(props) => props.theme.programmersBlue};
+// `;
