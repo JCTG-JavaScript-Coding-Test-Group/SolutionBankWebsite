@@ -5,13 +5,9 @@ import {
   InputLabel,
   MainContetnWrapper,
   OtherReportBtn,
-  QuestionBtn,
-  QuestionItem,
-  QuestionList,
   StepByStepInputItem,
   SubmitBtn,
   TextArea,
-  TextInput,
   ThanksMsg,
 } from "../../style/styledComponents";
 import gitHubLogoSrc from "../../images/github-logo-white.png";
@@ -19,12 +15,11 @@ import { useSearchParams } from "react-router-dom";
 import { LOGIN_URL } from "./utils/gitHubLogin";
 import useUserProfile from "../../hooks/user/useUserProfile";
 import useUserLogin from "../../hooks/user/useUserLogin";
+import QuestionList from "./components/QuestionList";
 
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
-  const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
-  const [isQuestionListVisible, setIsQuestionListVisible] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const userInfo = useUserProfile();
   const { isLoggedIn, requestLogin } = useUserLogin();
@@ -36,23 +31,15 @@ export default function SolutionReport() {
     }
   }, [searchParams]);
   const handleGitHubLogin = async () => {};
-  const isDetailContentVisible = questionName !== "";
+  // const isDetailContentVisible = questionName !== "";
   const isSubmitBtnDisabled = detailContent === "";
 
   function handleOtherSolutionBtnClick() {
     setSubmitted(false);
-    setQuestionName("");
+    // setQuestionName("");
     setDetailContent("");
   }
 
-  function handleQuestionNameInput(e) {
-    setQuestionName(e.target.value);
-    if (!isQuestionListVisible) setIsQuestionListVisible(true);
-  }
-  function handleQuestionClick(e) {
-    setIsQuestionListVisible(false);
-    setQuestionName(e.target.dataset.value);
-  }
   function handleDetailContentInput(e) {
     setDetailContent(e.target.value);
   }
@@ -76,27 +63,7 @@ export default function SolutionReport() {
         <MainContetnWrapper>
           <StepByStepInputItem>
             <InputLabel>문제 이름</InputLabel>
-            <TextInput
-              id="questionNameInput"
-              placeholder="문제 이름을 검색하세요."
-              defaultValue={questionName}
-              value={questionName}
-              onInput={handleQuestionNameInput}
-            />
-            {isQuestionListVisible && (
-              <QuestionList id="questionsList">
-                {[1, 2, 3, 4, 5].map((value) => (
-                  <QuestionItem key={value}>
-                    <QuestionBtn
-                      onClick={handleQuestionClick}
-                      data-value={`${value}번 문제`}
-                    >
-                      {value}번 문제
-                    </QuestionBtn>
-                  </QuestionItem>
-                ))}
-              </QuestionList>
-            )}
+            <QuestionList />
           </StepByStepInputItem>
 
           {/*isDetailContentVisible &&*/}
