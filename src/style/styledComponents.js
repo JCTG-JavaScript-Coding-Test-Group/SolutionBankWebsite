@@ -49,7 +49,7 @@ export const TextInput = styled.input`
 `;
 
 export const QuestionList = styled.ul`
-  // display: none;
+  //display: none;
   position: absolute;
   top: 20rem;
   left: 0;
@@ -62,7 +62,7 @@ export const QuestionList = styled.ul`
 
 export const QuestionItem = styled.li``;
 
-export const QuestionBtn = styled.button`
+export const QuestionBtn = styled.div`
   width: 100%;
   height: 9rem;
   text-align: left;

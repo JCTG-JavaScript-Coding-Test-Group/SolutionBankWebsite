@@ -5,6 +5,9 @@ import {
   InputLabel,
   MainContetnWrapper,
   OtherReportBtn,
+  QuestionBtn,
+  QuestionItem,
+  QuestionList,
   StepByStepInputItem,
   SubmitBtn,
   TextArea,
@@ -21,6 +24,7 @@ export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
   const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
+  const [isQuestionListVisible, setIsQuestionListVisible] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const userInfo = useUserProfile();
   const { isLoggedIn, requestLogin } = useUserLogin();
@@ -43,8 +47,12 @@ export default function SolutionReport() {
 
   function handleQuestionNameInput(e) {
     setQuestionName(e.target.value);
+    if (!isQuestionListVisible) setIsQuestionListVisible(true);
   }
-
+  function handleQuestionClick(e) {
+    setIsQuestionListVisible(false);
+    setQuestionName(e.target.dataset.value);
+  }
   function handleDetailContentInput(e) {
     setDetailContent(e.target.value);
   }
@@ -72,34 +80,23 @@ export default function SolutionReport() {
               id="questionNameInput"
               placeholder="문제 이름을 검색하세요."
               defaultValue={questionName}
+              value={questionName}
               onInput={handleQuestionNameInput}
             />
-            {/*<QuestionList id="questionsList">*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>1번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>2번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>3번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>4번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>5번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>6번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>7번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>8번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*</QuestionList>*/}
+            {isQuestionListVisible && (
+              <QuestionList id="questionsList">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <QuestionItem key={value}>
+                    <QuestionBtn
+                      onClick={handleQuestionClick}
+                      data-value={`${value}번 문제`}
+                    >
+                      {value}번 문제
+                    </QuestionBtn>
+                  </QuestionItem>
+                ))}
+              </QuestionList>
+            )}
           </StepByStepInputItem>
 
           {/*isDetailContentVisible &&*/}
