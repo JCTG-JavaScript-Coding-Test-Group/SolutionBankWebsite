@@ -166,6 +166,7 @@ const GitHubLoginBtn = styled.button`
   background-repeat: no-repeat;
   cursor: pointer;
 `;
+const UserInfo = styled.div``;
 // const Msg = styled.span`
 //   color: ${(props) => props.theme.programmersBlue};
 // `;
