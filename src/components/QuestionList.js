@@ -1,17 +1,41 @@
 import styled from "styled-components";
-import { TextInput } from "../../../style/styledComponents";
-import { useState } from "react";
+import { TextInput } from "../style/styledComponents";
+import { useEffect, useState } from "react";
+import useSolutionListValue from "../hooks/solutionList/useSolutionListValue";
+import { createFuzzyMatcher } from "./utils/createFuzzyMatcher";
 
-const QuestionList = () => {
+const QuestionList = ({ onQuestionNameChange }) => {
   const [isQuestionListVisible, setIsQuestionListVisible] = useState(false);
   const [questionName, setQuestionName] = useState("");
+  const solutionList = useSolutionListValue();
+  const [questionList, setQuestionList] = useState([]);
+
+  useEffect(() => {
+    setQuestionList(solutionList);
+  }, []);
+
+  useEffect(() => {
+    onQuestionNameChange(questionName);
+  }, [questionName]);
+  function handleQuestionNameInput(e) {
+    const inputValue = e.target.value;
+    setQuestionName(inputValue);
+    const regex = createFuzzyMatcher(inputValue);
+    setQuestionList(
+      solutionList.filter((solution) => regex.test(solution.name))
+    );
+    if (!isQuestionListVisible) setIsQuestionListVisible(true);
+  }
+  function handleQuestionNameBlur(e) {
+    setIsQuestionListVisible(false);
+  }
+  function handleQuestionNameFocus(e) {
+    setIsQuestionListVisible(true);
+  }
   function handleQuestionClick(e) {
+    e.stopPropagation();
     setIsQuestionListVisible(false);
     setQuestionName(e.target.dataset.value);
-  }
-  function handleQuestionNameInput(e) {
-    setQuestionName(e.target.value);
-    if (!isQuestionListVisible) setIsQuestionListVisible(true);
   }
 
   return (
@@ -21,17 +45,18 @@ const QuestionList = () => {
         placeholder="문제 이름을 검색하세요."
         defaultValue={questionName}
         value={questionName}
+        onFocus={handleQuestionNameFocus}
         onInput={handleQuestionNameInput}
       />
       {isQuestionListVisible && (
         <Wrapper id="questionsList">
-          {[1, 2, 3, 4, 5].map((value) => (
-            <QuestionItem key={value}>
+          {questionList.map((value, index) => (
+            <QuestionItem key={value.name + index}>
               <QuestionBtn
                 onClick={handleQuestionClick}
-                data-value={`${value}번 문제`}
+                data-value={value.name}
               >
-                {value}번 문제
+                {value.name} / Level {value.level}
               </QuestionBtn>
             </QuestionItem>
           ))}
