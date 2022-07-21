@@ -1,10 +1,10 @@
 import { atom } from "recoil";
-import { sessionStorageEffect } from "./utils/sessionStorageEffect";
+import { storageEffect } from "./utils/storageEffect";
 
 const userState = atom({
   key: "userState",
   default: {},
-  effects: [sessionStorageEffect("userState")],
+  effects: [storageEffect("userState")],
 });
 export default userState;
 

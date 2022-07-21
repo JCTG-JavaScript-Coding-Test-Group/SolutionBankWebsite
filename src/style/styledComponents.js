@@ -48,36 +48,6 @@ export const TextInput = styled.input`
   border: 0;
 `;
 
-export const QuestionList = styled.ul`
-  // display: none;
-  position: absolute;
-  top: 20rem;
-  left: 0;
-  width: 100%;
-  height: 33.2rem;
-  background-color: ${(props) => props.theme.searchBg};
-  overflow: scroll;
-  z-index: 10;
-`;
-
-export const QuestionItem = styled.li``;
-
-export const QuestionBtn = styled.button`
-  width: 100%;
-  height: 9rem;
-  text-align: left;
-  line-height: 9rem;
-  text-indent: 2rem;
-  background-color: transparent;
-  font-size: 3.1rem;
-  color: ${(props) => props.theme.basicWhite};
-  border-bottom: 1px solid ${(props) => props.theme.notSelectedTab};
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => props.theme.programmersBlue};
-  }
-`;
-
 export const SubmitBtn = styled.button`
   width: 100%;
   height: 13rem;

@@ -2,18 +2,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import {
-  ThanksMsg,
-  OtherReportBtn,
-  MainContetnWrapper,
-  StepByStepInputItem,
   InputLabel,
-  TextInput,
-  QuestionList,
-  QuestionItem,
-  QuestionBtn,
-  TextArea,
+  MainContetnWrapper,
+  OtherReportBtn,
+  StepByStepInputItem,
   SubmitBtn,
+  TextArea,
+  ThanksMsg,
 } from "../../style/styledComponents";
+import QuestionInputAndList from "../../components/QuestionInputAndList";
 
 export default function ErrorReport() {
   const [submitted, setSubmitted] = useState(false);
@@ -51,7 +48,9 @@ export default function ErrorReport() {
   function handleSubmitBtnClick() {
     setSubmitted(true);
   }
-
+  function handleQuestionNameChange(e) {
+    setQuestionName(e);
+  }
   return (
     <>
       <Header />
@@ -110,38 +109,41 @@ export default function ErrorReport() {
           {isQuestionNameVisible && (
             <StepByStepInputItem>
               <InputLabel>문제 이름</InputLabel>
-              <TextInput
-                id="questionNameInput"
-                placeholder="문제 이름을 검색하세요."
-                defaultValue={questionName}
-                onInput={handleQuestionNameInput}
+              <QuestionInputAndList
+                onQuestionNameChange={handleQuestionNameChange}
               />
-              <QuestionList id="questionsList">
-                <QuestionItem>
-                  <QuestionBtn>1번문제</QuestionBtn>
-                </QuestionItem>
-                <QuestionItem>
-                  <QuestionBtn>2번문제</QuestionBtn>
-                </QuestionItem>
-                <QuestionItem>
-                  <QuestionBtn>3번문제</QuestionBtn>
-                </QuestionItem>
-                <QuestionItem>
-                  <QuestionBtn>4번문제</QuestionBtn>
-                </QuestionItem>
-                <QuestionItem>
-                  <QuestionBtn>5번문제</QuestionBtn>
-                </QuestionItem>
-                <QuestionItem>
-                  <QuestionBtn>6번문제</QuestionBtn>
-                </QuestionItem>
-                <QuestionItem>
-                  <QuestionBtn>7번문제</QuestionBtn>
-                </QuestionItem>
-                <QuestionItem>
-                  <QuestionBtn>8번문제</QuestionBtn>
-                </QuestionItem>
-              </QuestionList>
+              {/*<TextInput*/}
+              {/*  id="questionNameInput"*/}
+              {/*  placeholder="문제 이름을 검색하세요."*/}
+              {/*  defaultValue={questionName}*/}
+              {/*  onInput={handleQuestionNameInput}*/}
+              {/*/>*/}
+              {/*<QuestionInputAndList id="questionsList">*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>1번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>2번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>3번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>4번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>5번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>6번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>7번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*  <QuestionItem>*/}
+              {/*    <QuestionBtn>8번문제</QuestionBtn>*/}
+              {/*  </QuestionItem>*/}
+              {/*</QuestionInputAndList>*/}
             </StepByStepInputItem>
           )}
 

@@ -8,7 +8,6 @@ import {
   StepByStepInputItem,
   SubmitBtn,
   TextArea,
-  TextInput,
   ThanksMsg,
 } from "../../style/styledComponents";
 import gitHubLogoSrc from "../../images/github-logo-white.png";
@@ -16,14 +15,23 @@ import { useSearchParams } from "react-router-dom";
 import { LOGIN_URL } from "./utils/gitHubLogin";
 import useUserProfile from "../../hooks/user/useUserProfile";
 import useUserLogin from "../../hooks/user/useUserLogin";
+import QuestionInputAndList from "../../components/QuestionInputAndList";
+import useFetchSolutionList from "../../hooks/solutionList/useFetchSolutionList";
+import useSetSolutionList from "../../hooks/solutionList/useSetSolutionList";
 
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
-  const [questionName, setQuestionName] = useState("");
   const [detailContent, setDetailContent] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const userInfo = useUserProfile();
   const { isLoggedIn, requestLogin } = useUserLogin();
+  const fetchSolutionList = useFetchSolutionList();
+  const setSolutionList = useSetSolutionList();
+  const [isFetched, setIsFetched] = useState(false);
+  useEffect(() => {
+    if (isFetched) fetchSolutionList();
+    setIsFetched(true);
+  }, [isFetched, setIsFetched, fetchSolutionList]);
 
   useEffect(() => {
     if (searchParams.get("code")) {
@@ -32,17 +40,13 @@ export default function SolutionReport() {
     }
   }, [searchParams]);
   const handleGitHubLogin = async () => {};
-  const isDetailContentVisible = questionName !== "";
+  // const isDetailContentVisible = questionName !== "";
   const isSubmitBtnDisabled = detailContent === "";
 
   function handleOtherSolutionBtnClick() {
     setSubmitted(false);
-    setQuestionName("");
+    // setQuestionName("");
     setDetailContent("");
-  }
-
-  function handleQuestionNameInput(e) {
-    setQuestionName(e.target.value);
   }
 
   function handleDetailContentInput(e) {
@@ -52,7 +56,9 @@ export default function SolutionReport() {
   function handleSubmitBtnClick() {
     setSubmitted(true);
   }
-
+  function handleQuestionNameChange(e) {
+    console.log(e);
+  }
   return (
     <>
       <Header />
@@ -68,38 +74,9 @@ export default function SolutionReport() {
         <MainContetnWrapper>
           <StepByStepInputItem>
             <InputLabel>문제 이름</InputLabel>
-            <TextInput
-              id="questionNameInput"
-              placeholder="문제 이름을 검색하세요."
-              defaultValue={questionName}
-              onInput={handleQuestionNameInput}
+            <QuestionInputAndList
+              onQuestionNameChange={handleQuestionNameChange}
             />
-            {/*<QuestionList id="questionsList">*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>1번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>2번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>3번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>4번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>5번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>6번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>7번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*  <QuestionItem>*/}
-            {/*    <QuestionBtn>8번문제</QuestionBtn>*/}
-            {/*  </QuestionItem>*/}
-            {/*</QuestionList>*/}
           </StepByStepInputItem>
 
           {/*isDetailContentVisible &&*/}
