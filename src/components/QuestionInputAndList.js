@@ -4,25 +4,27 @@ import { useEffect, useState } from "react";
 import useSolutionListValue from "../hooks/solutionList/useSolutionListValue";
 import { createFuzzyMatcher } from "./utils/createFuzzyMatcher";
 
-const QuestionList = ({ onQuestionNameChange }) => {
-  const [isQuestionListVisible, setIsQuestionListVisible] = useState(false);
+const QuestionInputAndList = ({ onQuestionNameChange = () => {} }) => {
   const [questionName, setQuestionName] = useState("");
-  const solutionList = useSolutionListValue();
   const [questionList, setQuestionList] = useState([]);
+  const [isQuestionListVisible, setIsQuestionListVisible] = useState(false);
+  const solutionList = useSolutionListValue();
 
   useEffect(() => {
     setQuestionList(solutionList);
   }, []);
-
   useEffect(() => {
     onQuestionNameChange(questionName);
   }, [questionName]);
+
   function handleQuestionNameInput(e) {
     const inputValue = e.target.value;
     setQuestionName(inputValue);
-    const regex = createFuzzyMatcher(inputValue);
+    const findMatchedNameRegex = createFuzzyMatcher(inputValue);
     setQuestionList(
-      solutionList.filter((solution) => regex.test(solution.name))
+      solutionList.filter((solution) =>
+        findMatchedNameRegex.test(solution.name)
+      )
     );
     if (!isQuestionListVisible) setIsQuestionListVisible(true);
   }
@@ -33,7 +35,6 @@ const QuestionList = ({ onQuestionNameChange }) => {
     setIsQuestionListVisible(true);
   }
   function handleQuestionClick(e) {
-    e.stopPropagation();
     setIsQuestionListVisible(false);
     setQuestionName(e.target.dataset.value);
   }
@@ -49,7 +50,7 @@ const QuestionList = ({ onQuestionNameChange }) => {
         onInput={handleQuestionNameInput}
       />
       {isQuestionListVisible && (
-        <Wrapper id="questionsList">
+        <QuestionList id="questionsList">
           {questionList.map((value, index) => (
             <QuestionItem key={value.name + index}>
               <QuestionBtn
@@ -60,13 +61,14 @@ const QuestionList = ({ onQuestionNameChange }) => {
               </QuestionBtn>
             </QuestionItem>
           ))}
-        </Wrapper>
+        </QuestionList>
       )}
     </>
   );
 };
-export default QuestionList;
-export const Wrapper = styled.ul`
+export default QuestionInputAndList;
+
+export const QuestionList = styled.ul`
   //display: none;
   position: absolute;
   top: 20rem;

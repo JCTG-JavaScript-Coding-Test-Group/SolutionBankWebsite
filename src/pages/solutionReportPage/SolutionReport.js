@@ -15,7 +15,7 @@ import { useSearchParams } from "react-router-dom";
 import { LOGIN_URL } from "./utils/gitHubLogin";
 import useUserProfile from "../../hooks/user/useUserProfile";
 import useUserLogin from "../../hooks/user/useUserLogin";
-import QuestionList from "../../components/QuestionList";
+import QuestionInputAndList from "../../components/QuestionInputAndList";
 import useFetchSolutionList from "../../hooks/solutionList/useFetchSolutionList";
 import useSetSolutionList from "../../hooks/solutionList/useSetSolutionList";
 
@@ -74,7 +74,9 @@ export default function SolutionReport() {
         <MainContetnWrapper>
           <StepByStepInputItem>
             <InputLabel>문제 이름</InputLabel>
-            <QuestionList onQuestionNameChange={handleQuestionNameChange} />
+            <QuestionInputAndList
+              onQuestionNameChange={handleQuestionNameChange}
+            />
           </StepByStepInputItem>
 
           {/*isDetailContentVisible &&*/}

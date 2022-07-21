@@ -10,6 +10,7 @@ import {
   TextArea,
   ThanksMsg,
 } from "../../style/styledComponents";
+import QuestionInputAndList from "../../components/QuestionInputAndList";
 
 export default function ErrorReport() {
   const [submitted, setSubmitted] = useState(false);
@@ -47,7 +48,9 @@ export default function ErrorReport() {
   function handleSubmitBtnClick() {
     setSubmitted(true);
   }
-
+  function handleQuestionNameChange(e) {
+    setQuestionName(e);
+  }
   return (
     <>
       <Header />
@@ -106,13 +109,16 @@ export default function ErrorReport() {
           {isQuestionNameVisible && (
             <StepByStepInputItem>
               <InputLabel>문제 이름</InputLabel>
+              <QuestionInputAndList
+                onQuestionNameChange={handleQuestionNameChange}
+              />
               {/*<TextInput*/}
               {/*  id="questionNameInput"*/}
               {/*  placeholder="문제 이름을 검색하세요."*/}
               {/*  defaultValue={questionName}*/}
               {/*  onInput={handleQuestionNameInput}*/}
               {/*/>*/}
-              {/*<QuestionList id="questionsList">*/}
+              {/*<QuestionInputAndList id="questionsList">*/}
               {/*  <QuestionItem>*/}
               {/*    <QuestionBtn>1번문제</QuestionBtn>*/}
               {/*  </QuestionItem>*/}
@@ -137,7 +143,7 @@ export default function ErrorReport() {
               {/*  <QuestionItem>*/}
               {/*    <QuestionBtn>8번문제</QuestionBtn>*/}
               {/*  </QuestionItem>*/}
-              {/*</QuestionList>*/}
+              {/*</QuestionInputAndList>*/}
             </StepByStepInputItem>
           )}
 
