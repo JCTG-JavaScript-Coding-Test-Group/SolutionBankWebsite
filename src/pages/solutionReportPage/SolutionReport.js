@@ -15,7 +15,9 @@ import { useSearchParams } from "react-router-dom";
 import { LOGIN_URL } from "./utils/gitHubLogin";
 import useUserProfile from "../../hooks/user/useUserProfile";
 import useUserLogin from "../../hooks/user/useUserLogin";
-import QuestionList from "./components/QuestionList";
+import QuestionList from "../../components/QuestionList";
+import useFetchSolutionList from "../../hooks/solutionList/useFetchSolutionList";
+import useSetSolutionList from "../../hooks/solutionList/useSetSolutionList";
 
 export default function SolutionReport() {
   const [submitted, setSubmitted] = useState(false);
@@ -23,6 +25,13 @@ export default function SolutionReport() {
   const [searchParams, setSearchParams] = useSearchParams();
   const userInfo = useUserProfile();
   const { isLoggedIn, requestLogin } = useUserLogin();
+  const fetchSolutionList = useFetchSolutionList();
+  const setSolutionList = useSetSolutionList();
+  const [isFetched, setIsFetched] = useState(false);
+  useEffect(() => {
+    if (isFetched) fetchSolutionList();
+    setIsFetched(true);
+  }, [isFetched, setIsFetched, fetchSolutionList]);
 
   useEffect(() => {
     if (searchParams.get("code")) {
@@ -47,7 +56,9 @@ export default function SolutionReport() {
   function handleSubmitBtnClick() {
     setSubmitted(true);
   }
-
+  function handleQuestionNameChange(e) {
+    console.log(e);
+  }
   return (
     <>
       <Header />
@@ -63,7 +74,7 @@ export default function SolutionReport() {
         <MainContetnWrapper>
           <StepByStepInputItem>
             <InputLabel>문제 이름</InputLabel>
-            <QuestionList />
+            <QuestionList onQuestionNameChange={handleQuestionNameChange} />
           </StepByStepInputItem>
 
           {/*isDetailContentVisible &&*/}
